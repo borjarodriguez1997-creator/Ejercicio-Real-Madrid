@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{ border:1px solid black;
+        box-shadow: 3px 3px 5px black;}
+        img {
+            width: 200px
+        }
+        #contenedor {
+            display:flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Jugadores del Real Madrid</h1>
+    <div id="contenedor"></div>
+    <script>
+    fetch('jugadores.json')
+        .then(response => response.json())
+        .then(jugadores => {
+            for (let i=0; i<jugadores.length; i++){
+            let jugador = jugadores[i];
+            let nombreJugador = jugador.nombre;
+            let edadJugador = jugador.edad;
+            let fichaJugador = jugador.ficha;
+            let nuevaTarjeta = document.createElement("div");
+            let tituloJugador = document.createElement("h1");
+            tituloJugador.setAttribute("style", "text-align:center; font-family:Arial")
+            tituloJugador.innerHTML = nombreJugador;
+            nuevaTarjeta.appendChild(tituloJugador);
+            let tituloEdad = document.createElement("h2");
+            tituloEdad.innerHTML = "Edad " + jugadores[i].edad;
+            nuevaTarjeta.appendChild(tituloEdad);
+            //ahora añado la ficha
+            let tituloFicha = document.createElement("h3");
+            tituloFicha.innerHTML = "Ficha " + jugadores[i].ficha;
+            nuevaTarjeta.appendChild(tituloFicha);
+            //ahora aañado la foto
+            let nuevaFoto = document.createElement ("img");
+            nuevaFoto.src = jugadores[i].foto;
+            nuevaTarjeta.appendChild (nuevaFoto);
+            //finalmente añado la tarjeta al contenedor
+            document.getElementById("contenedor").appendChild(nuevaTarjeta);
+        }})
+    
+    </script>
+</body>
+</html>
